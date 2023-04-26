@@ -47,8 +47,8 @@ function Header() {
                         </form> */}
                         <form className="d-flex">
                             <button onClick={() => {
-                                navigate('/Login')
-                            }} className="btn btn-light" type="submit">Signup / Login</button>
+                                navigate('/LandingPage')
+                            }} className="btn btn-light" type="submit">Logout</button>
                         </form>
                     </div>
                 </div>

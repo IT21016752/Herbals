@@ -130,10 +130,6 @@ function AllItems() {
                                     setItemPrice(e.target.value);
                                 }} />
                         </div>
-                        <div class="mb-3 form-check">
-                            <input type="checkbox" class="form-check-input" id="exampleCheck1" />
-                            <label class="form-check-label" for="exampleCheck1">Confirm</label>
-                        </div>
                         <button type="submit" class="btn btn-primary">Update Item</button>
                     </form>
                 </div>
