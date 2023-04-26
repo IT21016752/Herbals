@@ -16,6 +16,10 @@ function Header() {
                     </button>
                     <div className="collapse navbar-collapse" id="navbarSupportedContent">
                         <ul className="navbar-nav me-auto mb-2 mb-lg-0">
+                        <li className="nav-item">
+                                {/* <a className="nav-link active text-white" aria-current="page" href="/allitems">Home</a>*/}
+                                <Link to="/allitems" className="nav-link active text-white"> Home </Link>
+                            </li>
                             <li className="nav-item dropdown">
                                 <a className="nav-link dropdown-toggle text-white" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                                     Services

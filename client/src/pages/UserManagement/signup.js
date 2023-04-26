@@ -41,10 +41,6 @@ function Signup() {
                 <div class="row g-0">
                   <div class="col-lg-6">
                     <div class="card-body p-md-5 mx-md-4">
-                      <button onClick={() => {
-                        navigate('/Login')
-                      }} class="btn btn-outline-success" type="submit">Back</button>
-
                       <div class="text-center">
                         <img src="/assets/logo.png"
                           style={{ width: "185px" }} alt="logo" />

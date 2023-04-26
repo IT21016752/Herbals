@@ -17,7 +17,10 @@ function Header() {
                         <form className="d-flex">
                             <button onClick={() => {
                                 navigate('/Login')
-                            }} className="btn btn-light" type="submit">Signup / Login</button>
+                            }} className="btn btn-light" type="submit" style={{marginRight:"15px"}}>Login</button>
+                            <button onClick={() => {
+                                navigate('/Signup')
+                            }} className="btn btn-light" type="submit">Signup</button>
                         </form>
                     </div>
             </nav>

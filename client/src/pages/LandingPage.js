@@ -19,7 +19,7 @@ function LandingPage() {
                                             <div class="text-center">
                                                 <img src="/assets/logo.png"
                                                     style={{ width: "185px" }} alt="logo" />
-                                                <h4 class="mt-1 mb-5 pb-1">We are The Herbals Team</h4>
+                                                <h4 class="mt-1 mb-5 pb-1">The Herbals Team</h4>
                                             </div>
                                             <p>We are here for your herbal products</p>
                                             <button onClick={() => {

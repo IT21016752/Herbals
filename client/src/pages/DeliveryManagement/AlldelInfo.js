@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import '../../styles/itemStyles.css'
- function AllDelInfo(){
+function AllDelInfo() {
 
-    const [delivery,setDelivery]=useState([]);
+    const [delivery, setDelivery] = useState([]);
     const [id, setid] = useState('');
     const [uid, setuid] = useState('');
     const [contactName, setName] = useState('');
@@ -14,74 +14,78 @@ import '../../styles/itemStyles.css'
     const [time, setTime] = useState('');
 
 
-    useEffect(()=>{
+    useEffect(() => {
         function getDeliveryinfo() {
-            axios.get("http://localhost:4002/delivery/").then((res)=>{
+            axios.get("http://localhost:4002/delivery/").then((res) => {
                 setDelivery(res.data);
-            }).catch((err) =>{
+            }).catch((err) => {
                 alert(err.message);
             })
 
         }
         getDeliveryinfo();
-    },[])
+    }, [])
 
-//function to get one item
-function getOneItem(did) {
-    axios.get("http://localhost:4002/delivery/get/" + did).then((res) => {
-        setid(res.data.deli._id);
-        setuid(res.data.deli.uid);
-        setName(res.data.deli.contactName);
-        setAddress(res.data.deli.address);
-        setProvince(res.data.deli.province);
-        setPhone(res.data.deli.phone);
-        setPrice(res.data.deli.price);
-        setTime(res.data.deli.time);
+    //function to get one item
+    function getOneItem(did) {
+        axios.get("http://localhost:4002/delivery/get/" + did).then((res) => {
+            setid(res.data.deli._id);
+            setuid(res.data.deli.uid);
+            setName(res.data.deli.contactName);
+            setAddress(res.data.deli.address);
+            setProvince(res.data.deli.province);
+            setPhone(res.data.deli.phone);
+            setPrice(res.data.deli.price);
+            setTime(res.data.deli.time);
 
-    }).catch((err) => {
-        alert(err.message);
-    })
-}
-
-const showUpdateBox = () => {
-    document.getElementById('update-box').style.display = "block"
-}
-
-//Update function
-function sendData(e) {
-    e.preventDefault();
-    
-    const newDelivery = {
-        uid,
-        contactName,
-        address,
-        province,
-        phone,
-        price,
-        time
+        }).catch((err) => {
+            alert(err.message);
+        })
     }
-    
-    const ID= id;
 
-    axios.put("http://localhost:4002/delivery/update/"+ID, newDelivery).then(()=>{
-      alert("delivery Details Updated");
-      window.location.reload();
-    }).catch((err) =>{
-      alert(err)
-    })
+    const showUpdateBox = () => {
+        document.getElementById('backdrop').style.display = "block"
+    }
 
-  }
+    const handleClose = () => {
+        document.getElementById('backdrop').style.display = "none"
+    }
 
-//delete function
-function deleteItem(ID){
-    axios.delete("http://localhost:4002/delivery/delete/" + ID).then((res) => {
-        alert('Delivery infromation Deleted');
-        window.location.reload();
-    }).catch((err) => {
-        alert(err.message);
-    })
-}
-    return(
+    //Update function
+    function sendData(e) {
+        e.preventDefault();
+
+        const newDelivery = {
+            uid,
+            contactName,
+            address,
+            province,
+            phone,
+            price,
+            time
+        }
+
+        const ID = id;
+
+        axios.put("http://localhost:4002/delivery/update/" + ID, newDelivery).then(() => {
+            alert("delivery Details Updated");
+            window.location.reload();
+        }).catch((err) => {
+            alert(err)
+        })
+
+    }
+
+    //delete function
+    function deleteItem(ID) {
+        axios.delete("http://localhost:4002/delivery/delete/" + ID).then((res) => {
+            alert('Delivery infromation Deleted');
+            window.location.reload();
+        }).catch((err) => {
+            alert(err.message);
+        })
+    }
+    return (
         <>
             <div class="container shadow rounded">
                 <table class="table">
@@ -115,7 +119,7 @@ function deleteItem(ID){
                                         getOneItem(delivery._id);
                                         showUpdateBox();
                                     }}>Update</button>
-                                    <button type="button" class="btn btn-danger"onClick={() => {
+                                    <button type="button" class="btn btn-danger" onClick={() => {
                                         deleteItem(delivery._id);
                                     }}>Delete</button>
                                 </td>
@@ -125,70 +129,75 @@ function deleteItem(ID){
                 </table>
             </div>
 
-            <div id="update-box" className="container">
-                <form onSubmit={sendData}>
-                    <div className="mb-3">
-                        <label for="ID">ID</label>
-                        <input type="text" class="form-control" id="ID" value={id}
-                            disabled />
-                    </div>
-                    <div className="mb-3">
-                        <label for="uid">UID:</label>
-                        <input type="text" class="form-control" id="uid" placeholder="Enter It" value={uid}
-                            onChange={(e) => {
-                                setName(e.target.value);
-                            }} />
-                    </div>
-                    <div className="mb-3">
-                        <label for="contactName">Contact name:</label>
-                        <input type="text" class="form-control" id="contactName" placeholder="Enter It" value={contactName}
-                            onChange={(e) => {
-                                setName(e.target.value);
-                            }} />
-                    </div>
-                   
+            <div id="backdrop" className='backdrop-black'>
+                <div id="update-box" className="container form-style">
+                <button onClick={handleClose} className='btn btn-outline-danger' style={{width: '40px', height: '40px', float: 'right'}}>X</button>
+                <br></br>
+                <br></br>
+                    <form onSubmit={sendData}>
+                        <div className="mb-3">
+                            <label for="ID">ID</label>
+                            <input type="text" class="form-control" id="ID" value={id}
+                                disabled />
+                        </div>
+                        <div className="mb-3">
+                            <label for="uid">UID:</label>
+                            <input type="text" class="form-control" id="uid" placeholder="Enter It" value={uid}
+                                onChange={(e) => {
+                                    setName(e.target.value);
+                                }} />
+                        </div>
+                        <div className="mb-3">
+                            <label for="contactName">Contact name:</label>
+                            <input type="text" class="form-control" id="contactName" placeholder="Enter It" value={contactName}
+                                onChange={(e) => {
+                                    setName(e.target.value);
+                                }} />
+                        </div>
 
-                    <div className="mb-3">
-                        <label for="address">Address:</label>
-                        <input type="text" class="form-control" id="address" placeholder="Enter Contact name" value={address}
-                            onChange={(e) => {
-                                setAddress(e.target.value);
-                            }} />
-                    </div>
-                    <div className="mb-3">
-                        <label for="province">Province:</label>
-                        <input type="text" class="form-control" id="province" placeholder="Ex:Central" value={province}
-                            onChange={(e) => {
-                                setProvince(e.target.value);
-                            }} />
-                    </div>
-                    <div className="mb-3">
-                        <label for="Phone">Phone:</label>
-                        <input type="text" class="form-control" id="Phone" placeholder="+94 754236541" value={phone}
-                            onChange={(e) => {
-                                setPhone(e.target.value);
-                            }} />
-                    </div>
-                    <div className="mb-3">
-                        <label for="Price">Price:</label>
-                        <input type="text" class="form-control" id="Price" placeholder="Rs:2000 /-"  value={price}
-                            onChange={(e) => {
-                                setPrice(e.target.value);
-                            }} />
-                    </div>
-                    <div className="mb-3">
-                        <label for="Time">Time:</label>
-                        <input type="text" class="form-control" id="Time" placeholder="tt" value={time}
-                            onChange={(e) => {
-                                setTime(e.target.value);
-                            }} />
-                    </div>
-                    <div class="mb-3 form-check">
-                        <input type="checkbox" class="form-check-input" id="exampleCheck1" />
-                        <label class="form-check-label" for="exampleCheck1">Confirm</label>
-                    </div>
-                    <button type="submit" class="btn btn-primary">Update data</button>
-                </form>
+
+                        <div className="mb-3">
+                            <label for="address">Address:</label>
+                            <input type="text" class="form-control" id="address" placeholder="Enter Contact name" value={address}
+                                onChange={(e) => {
+                                    setAddress(e.target.value);
+                                }} />
+                        </div>
+                        <div className="mb-3">
+                            <label for="province">Province:</label>
+                            <input type="text" class="form-control" id="province" placeholder="Ex:Central" value={province}
+                                onChange={(e) => {
+                                    setProvince(e.target.value);
+                                }} />
+                        </div>
+                        <div className="mb-3">
+                            <label for="Phone">Phone:</label>
+                            <input type="text" class="form-control" id="Phone" placeholder="+94 754236541" value={phone}
+                                onChange={(e) => {
+                                    setPhone(e.target.value);
+                                }} />
+                        </div>
+                        <div className="mb-3">
+                            <label for="Price">Price:</label>
+                            <input type="text" class="form-control" id="Price" placeholder="Rs:2000 /-" value={price}
+                                onChange={(e) => {
+                                    setPrice(e.target.value);
+                                }} />
+                        </div>
+                        <div className="mb-3">
+                            <label for="Time">Time:</label>
+                            <input type="text" class="form-control" id="Time" placeholder="tt" value={time}
+                                onChange={(e) => {
+                                    setTime(e.target.value);
+                                }} />
+                        </div>
+                        <div class="mb-3 form-check">
+                            <input type="checkbox" class="form-check-input" id="exampleCheck1" />
+                            <label class="form-check-label" for="exampleCheck1">Confirm</label>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Update data</button>
+                    </form>
+                </div>
             </div>
         </>
     )

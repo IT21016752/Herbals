@@ -63,6 +63,9 @@ function AddItem() {  //ImageUpload
 
   return (
     <div className="container">
+      <div class = "form-style">
+        <h4>Add New Product</h4>
+        <br></br>
       <form onSubmit={sendData}>
         <div className="mb-3">
           <label for="itemName">Item Name</label>
@@ -86,6 +89,7 @@ function AddItem() {  //ImageUpload
         </div>
         <button type="submit" class="btn btn-primary">Add Item</button>
       </form>
+    </div>
     </div>
   )
 }

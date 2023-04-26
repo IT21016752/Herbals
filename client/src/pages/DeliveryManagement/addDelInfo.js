@@ -1,5 +1,6 @@
 import React,{useState} from "react"
 import axios from "axios";
+import '../../styles/itemStyles.css'
 
 export default function AddDeliveryInfo(){
 
@@ -41,6 +42,7 @@ function sendData(e){
 
     return(
       <div className="container">
+        <div class = "form-style">
         <form onSubmit={sendData}>
         <div class="form-group">
           <label for="uid">UID:</label>
@@ -96,6 +98,7 @@ function sendData(e){
         
         <button type="submit" class="btn btn-primary">Submit</button>
       </form>
+      </div>
       </div>
           )
 
