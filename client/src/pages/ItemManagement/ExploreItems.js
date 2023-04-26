@@ -54,7 +54,6 @@ function DisplayItems() {
                         {/* <h5 class="card-title">Item ID: {item._id}</h5> */}
                         <h5 class="card-text">Item Name: {item.itemName}</h5>
                         <h6 class="card-text">Item Price: {item.itemPrice}</h6>
-                        <button type="button" class="btn btn-success">Add to cart</button>
                     </div>
                 </div>
             ))}
@@ -74,7 +73,6 @@ function DisplayItems() {
                                     {/* <h5 class="card-title">Item ID: {item._id}</h5> */}
                                     <h5 class="card-text">Item Name: {item.itemName}</h5>
                                     <h6 class="card-text">Item Price: {item.itemPrice}</h6>
-                                    <button type="button" class="btn btn-success">Add to cart</button>
                                 </div>
                             </div>
                         // </div>

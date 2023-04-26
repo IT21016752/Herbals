@@ -46,7 +46,7 @@ function Signup() {
                       }} class="btn btn-outline-success" type="submit">Back</button>
 
                       <div class="text-center">
-                        <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-login-form/lotus.webp"
+                        <img src="/assets/logo.png"
                           style={{ width: "185px" }} alt="logo" />
                         <h4 class="mt-1 mb-5 pb-1">We are The Herbals Team</h4>
                       </div>
