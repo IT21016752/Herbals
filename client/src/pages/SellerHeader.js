@@ -54,7 +54,6 @@ function Header() {
                 </div>
             </nav>
             <Outlet>
-
             </Outlet>
         </>
     )
