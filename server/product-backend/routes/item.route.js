@@ -1,10 +1,11 @@
 import express from "express";
 import Item from "../models/item.js";
+import protect from '../middlewares/authMiddleware.js'
 
 const itemRouter = express.Router();
 
 //Add items
-itemRouter.route("/add").post((req,res)=>{
+itemRouter.route("/add").post(protect, (req,res)=>{
 
     const itemName = req.body.itemName;
     const itemPrice = Number(req.body.itemPrice);
@@ -33,7 +34,7 @@ itemRouter.route("/").get((req,res)=>{
 })
 
 //update item
-itemRouter.route("/update/:id").put(async (req, res) => {
+itemRouter.route("/update/:id").put(protect, async (req, res) => {
     let itemID = req.params.id;
     const {itemName, itemPrice} = req.body;
 
@@ -51,7 +52,7 @@ itemRouter.route("/update/:id").put(async (req, res) => {
 })
 
 //delete item
-itemRouter.route("/delete/:id").delete(async (req,res) => {
+itemRouter.route("/delete/:id").delete(protect, async (req,res) => {
     let itemID = req.params.id;
 
     await Item.findByIdAndDelete(itemID).then(() => {
@@ -63,7 +64,7 @@ itemRouter.route("/delete/:id").delete(async (req,res) => {
 })
 
 //get a single item
-itemRouter.route("/get/:id").get(async (req,res) => {
+itemRouter.route("/get/:id").get(protect, async (req,res) => {
     let itemID = req.params.id;
     await Item.findById(itemID).then((item) => {
         res.status(200).send({status: "Item fetched", item})

@@ -15,6 +15,8 @@ import Login from './pages/UserManagement/login.js';
 import Signup from './pages/UserManagement/signup.js';
 import LandingPage from './pages/LandingPage.js';
 import ExploreItems from './pages/ItemManagement/ExploreItems.js';
+import AdminPrivateRoute from './components/AdminPrivateRoute.js';
+import UserPrivateRoute from './components/UserPrivateRoute.js';
 
 function App() {
   return (
@@ -28,6 +30,7 @@ function App() {
           <Route path="/ExploreItems" element={<ExploreItems />} />
         </Route>
         <Route element={<UserHeader />}>
+        <Route element={<UserPrivateRoute />}>
           <Route path="/" />
           <Route path="/AddDelInfo" element={<AddDeliveryInfo />} />
           <Route path="/displayitems" element={<DisplayItems />} />
@@ -35,12 +38,15 @@ function App() {
           <Route path="/Login" element={<Login />} />
           <Route path="/Signup" element={<Signup />} />
         </Route>
+        </Route>
         <Route element={<SellerHeader />}>
+        <Route element={<AdminPrivateRoute />}>
           <Route path="/" />
           <Route path="/additems" element={<AddItem />} />
           <Route path="/allitems" element={<AllItems />} />
           <Route path="/AllDelInfo" element={<AllDelInfo />} />
           <Route path="/AllPayments" element={<AllPayments />} />
+        </Route>
         </Route>
       </Routes>
     </Router>

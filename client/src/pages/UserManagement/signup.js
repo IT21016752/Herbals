@@ -23,7 +23,8 @@ function Signup() {
     }
 
     axios.post("http://localhost:4004/user/add", newUser).then(() => {
-      alert("User added")
+      alert("Registration Successful! Login to continue")
+      navigate('/login')
     }).catch((err) => {
       alert(err)
     })

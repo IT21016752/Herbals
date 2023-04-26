@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from "axios";
 import '../../styles/itemStyles.css'
+import { useSelector } from 'react-redux';
 
 function AllItems() {
 
@@ -9,6 +10,16 @@ function AllItems() {
     const [itemName, setItemName] = useState('');
     const [itemPrice, setItemPrice] = useState('');
     const [url, setUrl] = useState('')
+
+    const loggedUser = useSelector((state) => state.user)
+    const token = useSelector((state) => state.token)
+
+    const config = {
+        headers: {
+            'Authorization': `Bearer ${token}`,
+            'Content-Type': 'application/json'
+        }
+    };
 
     //function to display all the items
     useEffect(() => {
@@ -24,7 +35,7 @@ function AllItems() {
 
     //function to get one item
     function getOneItem(pid) {
-        axios.get("http://localhost:4000/item/get/" + pid).then((res) => {
+        axios.get("http://localhost:4000/item/get/" + pid, config).then((res) => {
             setItemID(res.data.item._id);
             setItemName(res.data.item.itemName);
             setItemPrice(res.data.item.itemPrice);
@@ -52,7 +63,7 @@ function AllItems() {
 
         const id = itemID;
 
-        axios.put("http://localhost:4000/item/update/" + id, newItem).then(() => {
+        axios.put("http://localhost:4000/item/update/" + id, newItem, config).then(() => {
             alert("Item Details Updated");
             window.location.reload();
         }).catch((err) => {
@@ -63,7 +74,7 @@ function AllItems() {
 
     //delete item function
     function deleteItem(id) {
-        axios.delete("http://localhost:4000/item/delete/" + id).then((res) => {
+        axios.delete("http://localhost:4000/item/delete/" + id, config).then((res) => {
             alert('Item Deleted');
             window.location.reload();
         }).catch((err) => {
@@ -107,7 +118,7 @@ function AllItems() {
 
             <div id="backdrop" className='backdrop-black'>
                 <div id="update-box" className="container, form-style">
-                <button onClick={handleClose} className='btn btn-outline-danger' style={{width: '40px', height: '40px', float: 'right'}}>X</button>
+                    <button onClick={handleClose} className='btn btn-outline-danger' style={{ width: '40px', height: '40px', float: 'right' }}>X</button>
                     <h4>Update Item</h4>
                     <br></br>
                     <form onSubmit={sendData}>

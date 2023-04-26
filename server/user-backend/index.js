@@ -3,9 +3,6 @@ import cors from "cors";
 import "dotenv/config.js";
 import logger from "./utilities/logger.js";
 import connectDatabase from "./config/database.js";
-import deliveryRouter from "./routes/delivery.js";
-import itemRoute from "./routes/item.route.js";
-import payRouter from "./routes/payment.js";
 import uploadImage from "./uploadimage.js"
 import userRouter from "./routes/user.route.js";
 
@@ -27,12 +24,6 @@ app.get('/', (req, res) => {
 //         res.status(500).send(err)
 //     })
 // })
-
-app.use("/delivery",deliveryRouter);
-
-app.use("/item", itemRoute);
-
-app.use("/payment", payRouter);
 
 app.use("/user", userRouter);
 

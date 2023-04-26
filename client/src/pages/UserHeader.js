@@ -1,10 +1,13 @@
 import React from "react";
 import { Outlet, Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
+import { useDispatch } from 'react-redux';
+import { setLogout } from "../state";
 
 function Header() {
 
     const navigate = useNavigate()
+    const dispatch = useDispatch()
 
     return (
         <>
@@ -33,7 +36,7 @@ function Header() {
                         </form> */}
                         <form className="d-flex">
                             <button onClick={() => {
-                                navigate('/LandingPage')
+                                dispatch(setLogout())
                             }} className="btn btn-light" type="submit">Logout</button>
                         </form>
                     </div>

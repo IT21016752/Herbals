@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import '../../styles/itemStyles.css'
 import axios from 'axios';
+import { useSelector } from 'react-redux';
 
 function AddItem() {  //ImageUpload
 
@@ -8,6 +9,15 @@ function AddItem() {  //ImageUpload
   const [itemPrice, setPrice] = useState("");
   const [itemImage, setImage] = useState("");
 
+  const loggedUser = useSelector((state) => state.user)
+  const token = useSelector((state) => state.token)
+
+  const config = {
+      headers: {
+          'Authorization': `Bearer ${token}`,
+          'Content-Type': 'application/json'
+        }
+    };
 
   //image
   const [loading, setLoading] = useState(false)
@@ -37,7 +47,7 @@ function AddItem() {  //ImageUpload
       url
     }
 
-    axios.post("http://localhost:4000/item/add", newItem).then(() => {
+    axios.post("http://localhost:4000/item/add", newItem, config).then(() => {
       alert("Item added")
     }).catch((err) => {
       alert(err)
