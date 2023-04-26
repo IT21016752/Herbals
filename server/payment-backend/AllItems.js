@@ -12,7 +12,7 @@ function AllItems() {
     //function to display all the items
     useEffect(() => {
         function getItems() {
-            axios.get("http://localhost:8091/item/").then((res) => {
+            axios.get("http://localhost:4000/item/").then((res) => {
                 setItems(res.data);
             }).catch((err) => {
                 alert(err.message);
@@ -23,7 +23,7 @@ function AllItems() {
 
     //function to get one item
     function getOneItem(pid) {
-        axios.get("http://localhost:8091/item/get/" + pid).then((res) => {
+        axios.get("http://localhost:4000/item/get/" + pid).then((res) => {
             setItemID(res.data.item._id);
             setItemName(res.data.item.itemName);
             setItemPrice(res.data.item.itemPrice);
@@ -47,7 +47,7 @@ function AllItems() {
         
         const id = itemID;
 
-        axios.put("http://localhost:8091/item/update/"+id, newItem).then(()=>{
+        axios.put("http://localhost:4000/item/update/"+id, newItem).then(()=>{
           alert("Item Details Updated");
           window.location.reload();
         }).catch((err) =>{
@@ -58,7 +58,7 @@ function AllItems() {
 
     //delete function
     function deleteItem(id){
-        axios.delete("http://localhost:8091/item/delete/" + id).then((res) => {
+        axios.delete("http://localhost:4000/item/delete/" + id).then((res) => {
             alert('Item Deleted');
             window.location.reload();
         }).catch((err) => {

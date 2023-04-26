@@ -27,7 +27,7 @@ function sendData(e){
 
   }
 
-  axios.post("http://localhost:8091/payment/add",newPayment).then(()=>{
+  axios.post("http://localhost:4001/payment/add",newPayment).then(()=>{
     alert("Payment infromation added")
     setuserId("");
     setName("");

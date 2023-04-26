@@ -22,7 +22,7 @@ function Signup() {
       password
     }
 
-    axios.post("http://localhost:8091/user/add", newUser).then(() => {
+    axios.post("http://localhost:4004/user/add", newUser).then(() => {
       alert("User added")
     }).catch((err) => {
       alert(err)

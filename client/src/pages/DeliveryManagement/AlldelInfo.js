@@ -16,7 +16,7 @@ import '../../styles/itemStyles.css'
 
     useEffect(()=>{
         function getDeliveryinfo() {
-            axios.get("http://localhost:8091/delivery/").then((res)=>{
+            axios.get("http://localhost:4002/delivery/").then((res)=>{
                 setDelivery(res.data);
             }).catch((err) =>{
                 alert(err.message);
@@ -28,7 +28,7 @@ import '../../styles/itemStyles.css'
 
 //function to get one item
 function getOneItem(did) {
-    axios.get("http://localhost:8091/delivery/get/" + did).then((res) => {
+    axios.get("http://localhost:4002/delivery/get/" + did).then((res) => {
         setid(res.data.deli._id);
         setuid(res.data.deli.uid);
         setName(res.data.deli.contactName);
@@ -63,7 +63,7 @@ function sendData(e) {
     
     const ID= id;
 
-    axios.put("http://localhost:8091/delivery/update/"+ID, newDelivery).then(()=>{
+    axios.put("http://localhost:4002/delivery/update/"+ID, newDelivery).then(()=>{
       alert("delivery Details Updated");
       window.location.reload();
     }).catch((err) =>{
@@ -74,7 +74,7 @@ function sendData(e) {
 
 //delete function
 function deleteItem(ID){
-    axios.delete("http://localhost:8091/delivery/delete/" + ID).then((res) => {
+    axios.delete("http://localhost:4002/delivery/delete/" + ID).then((res) => {
         alert('Delivery infromation Deleted');
         window.location.reload();
     }).catch((err) => {

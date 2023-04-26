@@ -37,7 +37,7 @@ function AddItem() {  //ImageUpload
       url
     }
 
-    axios.post("http://localhost:8091/item/add", newItem).then(() => {
+    axios.post("http://localhost:4000/item/add", newItem).then(() => {
       alert("Item added")
     }).catch((err) => {
       alert(err)
@@ -53,7 +53,7 @@ function AddItem() {  //ImageUpload
     const base64 = await convertBase64(file)
     setLoading(true);
     console.log(base64)
-    axios.post("http://localhost:8091/uploadImage", { image: base64 }).then((res) => {
+    axios.post("http://localhost:4000/uploadImage", { image: base64 }).then((res) => {
         setUrl(res.data);
         //res.data
         alert("Image uploaded Succesfully");

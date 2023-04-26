@@ -12,7 +12,7 @@ function DisplayItems() {
     //function to display all the items
     useEffect(() => {
         function getItems() {
-            axios.get("http://localhost:8091/item/").then((res) => {
+            axios.get("http://localhost:4000/item/").then((res) => {
                 setItems(res.data);
             }).catch((err) => {
                 alert(err.message);
@@ -26,7 +26,7 @@ function DisplayItems() {
 
         e.preventDefault()
 
-        axios.get(`http://localhost:8091/item/search/${searchTerm}`).then((res) => {
+        axios.get(`http://localhost:4000/item/search/${searchTerm}`).then((res) => {
             setSearchResults(res.data)
         }).catch((err) => {
             console.log(err)
@@ -44,9 +44,10 @@ function DisplayItems() {
             </form>
             <br></br>
             {/* Displaying search items */}
+            <div class="row">
             {searchResults.map((item) => (
                 
-                <div class="card" style={{ width: "18rem", height: "24rem", marginBottom: "50px", marginLeft: "50px", boxShadow: "1px 2px 3px 4px rgba(20,20,20,0.4)"}}>
+                <div class="card" style={{ width: "18rem", height: "24rem", marginBottom: "50px", marginLeft: "40px" , boxShadow: "0px 0px 10px rgba(0, 80, 0, 0.8)"}}>
                     <img src={item.url} style={{ width: "12rem", height: "14rem", margin: '0px auto'}} class="card-img-top" alt="..."></img>
                     <div class="card-body">
                         {/* <h5 class="card-title">Item ID: {item._id}</h5> */}
@@ -56,6 +57,7 @@ function DisplayItems() {
                     </div>
                 </div>
             ))}
+            </div>
 
             {/* Display all items */}
             < div class="container text-center" >
@@ -63,8 +65,8 @@ function DisplayItems() {
                 <br></br>
                 <div class="row">
                     {items.map(item => (
-                        <div class="col-12 col-md-6 col-lg-4" >
-                            <div class="card" style={{ width: "18rem", height: "24rem", marginBottom: "50px", boxShadow: "1px 2px 3px 4px rgba(20,20,20,0.4)"}}>
+                        // <div class="col-12 col-md-6 col-lg-4" >
+                            <div class="card" style={{ width: "18rem", height: "24rem", marginBottom: "40px", marginLeft: "40px", boxShadow: "0px 0px 10px rgba(0, 80, 0, 0.8)"}}>
                                 <img src={item.url} style={{ width: "12rem", height: "14rem", margin: '0px auto'}} class="card-img-top" alt="..."></img>
                                 <div class="card-body">
                                     {/* <h5 class="card-title">Item ID: {item._id}</h5> */}
@@ -73,7 +75,7 @@ function DisplayItems() {
                                     <button type="button" class="btn btn-success">Add to cart</button>
                                 </div>
                             </div>
-                        </div>
+                        // </div>
 
                     ))}
                 </div>

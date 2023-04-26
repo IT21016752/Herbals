@@ -13,7 +13,7 @@ function AllItems() {
     //function to display all the items
     useEffect(() => {
         function getItems() {
-            axios.get("http://localhost:8091/item/").then((res) => {
+            axios.get("http://localhost:4000/item/").then((res) => {
                 setItems(res.data);
             }).catch((err) => {
                 alert(err.message);
@@ -24,7 +24,7 @@ function AllItems() {
 
     //function to get one item
     function getOneItem(pid) {
-        axios.get("http://localhost:8091/item/get/" + pid).then((res) => {
+        axios.get("http://localhost:4000/item/get/" + pid).then((res) => {
             setItemID(res.data.item._id);
             setItemName(res.data.item.itemName);
             setItemPrice(res.data.item.itemPrice);
@@ -48,7 +48,7 @@ function AllItems() {
         
         const id = itemID;
 
-        axios.put("http://localhost:8091/item/update/"+id, newItem).then(()=>{
+        axios.put("http://localhost:4000/item/update/"+id, newItem).then(()=>{
           alert("Item Details Updated");
           window.location.reload();
         }).catch((err) =>{
@@ -59,7 +59,7 @@ function AllItems() {
 
     //delete item function
     function deleteItem(id){
-        axios.delete("http://localhost:8091/item/delete/" + id).then((res) => {
+        axios.delete("http://localhost:4000/item/delete/" + id).then((res) => {
             alert('Item Deleted');
             window.location.reload();
         }).catch((err) => {
@@ -78,9 +78,9 @@ function AllItems() {
                     <br></br>
                     {items.map(item => (
 
-                        <div class="col-12 col-md-6 col-lg-4" >
+                        // <div class="col-12 col-md-6 col-lg-4" >
                            
-                            <div class="card" style={{ width: "18rem", height: "24rem", marginBottom: "50px", boxShadow: "1px 2px 3px 4px rgba(20,20,20,0.4)"}}>
+                            <div class="card" style={{ width: "18rem", height: "24rem", marginBottom: "40px", marginLeft: "40px",  boxShadow: "0px 0px 10px rgba(0, 80, 0, 0.8)"}}>
                                 <img src={item.url} style={{ width: "12rem", height: "12rem", margin: '0px auto' }} class="card-img-top" alt="..."></img>
                                 <div class="card-body">
                                     <h6 class="card-title">Item ID: {item._id}</h6>
@@ -95,7 +95,7 @@ function AllItems() {
                                     }}>Delete</button>
                                 </div>
                             </div>
-                        </div>
+                        // </div>
 
                     ))}
                 </div>

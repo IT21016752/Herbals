@@ -18,7 +18,7 @@ function AllPayments() {
     //function to display all the payments
     useEffect(() => {
         function getPayments() {
-            axios.get("http://localhost:8091/payment/").then((res) => {
+            axios.get("http://localhost:4001/payment/").then((res) => {
                 setPayments(res.data);
             }).catch((err) => {
                 alert(err.message);
@@ -29,7 +29,7 @@ function AllPayments() {
 
     //function to get one payment
     function getOnePayment(pid) {
-        axios.get("http://localhost:8091/payment/get/" + pid).then((res) => {
+        axios.get("http://localhost:4001/payment/get/" + pid).then((res) => {
             setPayID(res.data.payment._id);
             setuserId(res.data.payment.userId);
             setName(res.data.payment.name);
@@ -65,7 +65,7 @@ function AllPayments() {
         
         const id = payID;
 
-        axios.put("http://localhost:8091/payment/update/"+id, newPayment).then(()=>{
+        axios.put("http://localhost:4001/payment/update/"+id, newPayment).then(()=>{
           alert("Payment Details Updated");
           window.location.reload();
         }).catch((err) =>{
@@ -76,7 +76,7 @@ function AllPayments() {
 
     //delete function
     function deletePayment(id){
-        axios.delete("http://localhost:8091/payment/delete/" + id).then((res) => {
+        axios.delete("http://localhost:4001/payment/delete/" + id).then((res) => {
             alert('Order details Deleted');
             window.location.reload();
         }).catch((err) => {

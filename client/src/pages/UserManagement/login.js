@@ -16,7 +16,7 @@ function Login() {
           password
         }
     
-        axios.post("http://localhost:8091/user/login", newUser).then((res) => {
+        axios.post("http://localhost:4004/user/login", newUser).then((res) => {
           alert("User Logged in")
           console.log(res.data.token)
         }).catch((err) => {

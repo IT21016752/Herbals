@@ -25,7 +25,7 @@ function sendData(e){
 
   }
 
-  axios.post("http://localhost:8091/delivery/add",newDelivery).then(()=>{
+  axios.post("http://localhost:4002/delivery/add",newDelivery).then(()=>{
     alert("delivery infromation added")
     setuid("");
     setName("");
