@@ -15,6 +15,20 @@
     z-index: 10000;
 }
 
+.form-style2 {
+    width: 450px;
+    padding: 40px 60px;
+    box-shadow:0px 0px 10px rgba(0, 80, 0, 0.8);
+    color: black;
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: white;
+    z-index: 10000;
+}
+
+
 .backdrop-black{
     width: 100vw;
     height: 100vh;

@@ -1,6 +1,5 @@
 import React,{useState} from "react"
 import axios from "axios";
-import '../../styles/itemStyles.css'
 
 export default function AddDeliveryInfo(){
 
@@ -11,7 +10,7 @@ export default function AddDeliveryInfo(){
   const [phone,setPhone]= useState("");
   const [price,setPrice]= useState("");
   const [time,setTime]= useState("");
-
+  const [email, setEmail] = useState("");//new
 function sendData(e){
   e.preventDefault(); 
 
@@ -26,7 +25,7 @@ function sendData(e){
 
   }
 
-  axios.post("http://localhost:4002/delivery/add",newDelivery).then(()=>{
+  axios.post("http://localhost:8091/delivery/add",newDelivery).then(()=>{
     alert("delivery infromation added")
     setuid("");
     setName("");
@@ -39,10 +38,20 @@ function sendData(e){
     alert(err)
   })
 }
+const sendEmail=async (e) =>  {
+  e.preventDefault();
 
+  const data={
+    email
+  }
+  const response = await axios.post("http://localhost:8091/api/sendEmail",data)
+  console.log(response.data)
+
+};
     return(
-      <div className="container">
-        <div class = "form-style">
+      <div className="container"   >
+        <div class="form-style">
+        <h1>Add your Delivery Information</h1><br></br>
         <form onSubmit={sendData}>
         <div class="form-group">
           <label for="uid">UID:</label>
@@ -76,10 +85,10 @@ function sendData(e){
         </div>
         <div class="form-group">
         <label for="phone">Phone:</label>
-          <input type="text" class="form-control" id="phone"  placeholder="+94 754236541"  onChange={(e)=>{
+        <input type="text" class="form-control" id="phone"  placeholder="0714839278" pattern="[0-9]{10}" required onChange={(e)=>{
+  setPhone(e.target.value);
+}}/>
 
-      setPhone(e.target.value);
-          }}/>
         </div>
         <div class="form-group">
         <label for="price">Price:</label>
@@ -89,8 +98,8 @@ function sendData(e){
           }}/>
         </div>
         <div class="form-group">
-        <label for="time">Time:</label>
-          <input type="text" class="form-control" id="time"  placeholder="tt"  onChange={(e)=>{
+        <label for="time">postal code:</label>
+          <input type="text" class="form-control" id="time"  placeholder="Ex:20000"  onChange={(e)=>{
 
       setTime(e.target.value);
           }}/>
@@ -98,6 +107,17 @@ function sendData(e){
         
         <button type="submit" class="btn btn-primary">Submit</button>
       </form>
+      </div>
+     <br></br><br></br>
+      <div class="form-style2">
+      <h2>Send an email confirmation</h2>
+      <br></br><br></br><br></br>
+      <form onSubmit={sendEmail}>
+  <div className="form-group">
+    <input type="email" className="form-control" id="email" placeholder="Enter your email here " onChange={(e) => setEmail(e.target.value)} />
+  </div><br></br><br></br>
+  <button type="submit" className="btn btn-primary">Send Confirmation Email</button>
+</form>
       </div>
       </div>
           )

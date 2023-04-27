@@ -1,206 +1,187 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import '../../styles/itemStyles.css'
-function AllDelInfo() {
+import '../../styles/itemStyles.css';
 
-    const [delivery, setDelivery] = useState([]);
-    const [id, setid] = useState('');
-    const [uid, setuid] = useState('');
-    const [contactName, setName] = useState('');
-    const [address, setAddress] = useState('');
-    const [province, setProvince] = useState('');
-    const [phone, setPhone] = useState('');
-    const [price, setPrice] = useState('');
-    const [time, setTime] = useState('');
+function AllDelInfo(){
 
+  const [delivery, setDelivery] = useState([]);
+  const [id, setid] = useState('');
+  const [uid, setuid] = useState('');
+  const [contactName, setName] = useState('');
+  const [address, setAddress] = useState('');
+  const [province, setProvince] = useState('');
+  const [phone, setPhone] = useState('');
+  const [price, setPrice] = useState('');
+  const [time, setTime] = useState('');
+  const [drivers, setDrivers] = useState([]);
+  const [selectedDriver, setSelectedDriver] = useState('');
 
-    useEffect(() => {
-        function getDeliveryinfo() {
-            axios.get("http://localhost:4002/delivery/").then((res) => {
-                setDelivery(res.data);
-            }).catch((err) => {
-                alert(err.message);
-            })
-
-        }
-        getDeliveryinfo();
-    }, [])
-
-    //function to get one item
-    function getOneItem(did) {
-        axios.get("http://localhost:4002/delivery/get/" + did).then((res) => {
-            setid(res.data.deli._id);
-            setuid(res.data.deli.uid);
-            setName(res.data.deli.contactName);
-            setAddress(res.data.deli.address);
-            setProvince(res.data.deli.province);
-            setPhone(res.data.deli.phone);
-            setPrice(res.data.deli.price);
-            setTime(res.data.deli.time);
-
-        }).catch((err) => {
-            alert(err.message);
-        })
+  useEffect(()=>{
+    function getDeliveryinfo() {
+      axios.get("http://localhost:8091/delivery/").then((res)=>{
+        setDelivery(res.data);
+      }).catch((err) =>{
+        alert(err.message);
+      })
     }
+    getDeliveryinfo();
+  },[])
 
-    const showUpdateBox = () => {
-        document.getElementById('backdrop').style.display = "block"
+  useEffect(()=>{
+    function getDriverinfo() {
+      axios.get("http://localhost:8091/Driver/").then((res)=>{
+        setDrivers(res.data);
+      }).catch((err) =>{
+        alert(err.message);
+      })
     }
+    getDriverinfo();
+  },[])
+//   useEffect(() => {
+//     function getDriverinfo() {
+//     axios.get("http://localhost:8091/Driver/")///////////////////////////
+//       .then(res => {
+//         setDrivers(res.data);
+//       })
+//       .catch(err => {
+//         console.log(err);
+//       });
+//   }, []);
 
-    const handleClose = () => {
-        document.getElementById('backdrop').style.display = "none"
+  //function to get one item
+  function getOneItem(did) {
+    axios.get("http://localhost:8091/delivery/get/" + did).then((res) => {
+      setid(res.data.deli._id);
+      setuid(res.data.deli.uid);
+      setName(res.data.deli.contactName);
+      setAddress(res.data.deli.address);
+      setProvince(res.data.deli.province);
+      setPhone(res.data.deli.phone);
+      setPrice(res.data.deli.price);
+      setTime(res.data.deli.time);
+    }).catch((err) => {
+      alert(err.message);
+    })
+  }
+
+  //Update function
+  function sendData(e) {
+    e.preventDefault();
+    const newDelivery = {
+      uid,
+      contactName,
+      address,
+      province,
+      phone,
+      price,
+      time,
+      driver: selectedDriver
     }
+    const ID = id;
+    axios.put("http://localhost:8091/delivery/update/"+ID, newDelivery).then(()=>{
+      alert("Delivery Details Updated");
+      window.location.reload();
+    }).catch((err) =>{
+      alert(err)
+    })
+  }
 
-    //Update function
-    function sendData(e) {
-        e.preventDefault();
+  //delete function
+  function deleteItem(ID){
+    axios.delete("http://localhost:8091/delivery/delete/" + ID).then((res) => {
+      alert('Delivery Information Deleted');
+      window.location.reload();
+    }).catch((err) => {
+      alert(err.message);
+    })
+  }
 
-        const newDelivery = {
-            uid,
-            contactName,
-            address,
-            province,
-            phone,
-            price,
-            time
-        }
-
-        const ID = id;
-
-        axios.put("http://localhost:4002/delivery/update/" + ID, newDelivery).then(() => {
-            alert("delivery Details Updated");
-            window.location.reload();
-        }).catch((err) => {
-            alert(err)
-        })
-
-    }
-
-    //delete function
-    function deleteItem(ID) {
-        axios.delete("http://localhost:4002/delivery/delete/" + ID).then((res) => {
-            alert('Delivery infromation Deleted');
-            window.location.reload();
-        }).catch((err) => {
-            alert(err.message);
-        })
-    }
-    return (
-        <>
-            <div class="container shadow rounded">
-                <table class="table">
-                    <thead>
-                        <tr>
-                            <th scope="col">ID</th>
-                            <th scope="col">UID</th>
-                            <th scope="col">contactName</th>
-                            <th scope="col">address</th>
-                            <th scope="col">province</th>
-                            <th scope="col">phone</th>
-                            <th scope="col">price</th>
-                            <th scope="col">Time</th>
-                            <th scope="col"></th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {delivery.map(delivery => (
-                            <tr>
-                                <td>{delivery._id}</td>
-                                <td>{delivery.uid}</td>
-                                <td>{delivery.contactName}</td>
-                                <td>{delivery.address}</td>
-                                <td>{delivery.province}</td>
-                                <td>{delivery.phone}</td>
-                                <td>{delivery.price}</td>
-                                <td>{delivery.time}</td>
-
-                                <td>
-                                    <button type="button" class="btn btn-success m-3 mt-0 mb-0" onClick={() => {
-                                        getOneItem(delivery._id);
-                                        showUpdateBox();
-                                    }}>Update</button>
-                                    <button type="button" class="btn btn-danger" onClick={() => {
-                                        deleteItem(delivery._id);
-                                    }}>Delete</button>
-                                </td>
-                            </tr>
-                        ))}
-                    </tbody>
-                </table>
-            </div>
-
-            <div id="backdrop" className='backdrop-black'>
-                <div id="update-box" className="container form-style">
-                <button onClick={handleClose} className='btn btn-outline-danger' style={{width: '40px', height: '40px', float: 'right'}}>X</button>
-                <br></br>
-                <br></br>
-                    <form onSubmit={sendData}>
-                        <div className="mb-3">
-                            <label for="ID">ID</label>
-                            <input type="text" class="form-control" id="ID" value={id}
-                                disabled />
-                        </div>
-                        <div className="mb-3">
-                            <label for="uid">UID:</label>
-                            <input type="text" class="form-control" id="uid" placeholder="Enter It" value={uid}
-                                onChange={(e) => {
-                                    setName(e.target.value);
-                                }} />
-                        </div>
-                        <div className="mb-3">
-                            <label for="contactName">Contact name:</label>
-                            <input type="text" class="form-control" id="contactName" placeholder="Enter It" value={contactName}
-                                onChange={(e) => {
-                                    setName(e.target.value);
-                                }} />
-                        </div>
-
-
-                        <div className="mb-3">
-                            <label for="address">Address:</label>
-                            <input type="text" class="form-control" id="address" placeholder="Enter Contact name" value={address}
-                                onChange={(e) => {
-                                    setAddress(e.target.value);
-                                }} />
-                        </div>
-                        <div className="mb-3">
-                            <label for="province">Province:</label>
-                            <input type="text" class="form-control" id="province" placeholder="Ex:Central" value={province}
-                                onChange={(e) => {
-                                    setProvince(e.target.value);
-                                }} />
-                        </div>
-                        <div className="mb-3">
-                            <label for="Phone">Phone:</label>
-                            <input type="text" class="form-control" id="Phone" placeholder="+94 754236541" value={phone}
-                                onChange={(e) => {
-                                    setPhone(e.target.value);
-                                }} />
-                        </div>
-                        <div className="mb-3">
-                            <label for="Price">Price:</label>
-                            <input type="text" class="form-control" id="Price" placeholder="Rs:2000 /-" value={price}
-                                onChange={(e) => {
-                                    setPrice(e.target.value);
-                                }} />
-                        </div>
-                        <div className="mb-3">
-                            <label for="Time">Time:</label>
-                            <input type="text" class="form-control" id="Time" placeholder="tt" value={time}
-                                onChange={(e) => {
-                                    setTime(e.target.value);
-                                }} />
-                        </div>
-                        <div class="mb-3 form-check">
-                            <input type="checkbox" class="form-check-input" id="exampleCheck1" />
-                            <label class="form-check-label" for="exampleCheck1">Confirm</label>
-                        </div>
-                        <button type="submit" class="btn btn-primary">Update data</button>
-                    </form>
-                </div>
-            </div>
-        </>
-    )
+  return (
+    <>
+      <div className="container shadow rounded">
+        <table className="table">
+          <thead>
+            <tr>
+              <th scope="col">ID</th>
+              <th scope="col">UID</th>
+              <th scope="col">contactName</th>
+              <th scope="col">address</th>
+              <th scope="col">province</th>
+              <th scope="col">phone</th>
+              <th scope="col">price</th>
+              <th scope="col">Time</th>
+              <th scope="col"></th>
+              <th scope="col">Assign</th>
+            </tr>
+          </thead>
+          <tbody>
+            {delivery.map(delivery => (
+              <tr key={delivery._id}>
+                <td>{delivery._id}</td>
+                <td>{delivery.uid}</td>
+<td>{delivery.contactName}</td>
+<td>{delivery.address}</td>
+<td>{delivery.province}</td>
+<td>{delivery.phone}</td>
+<td>{delivery.price}</td>
+<td>{delivery.time}</td>
+<td>
+<button className="btn btn-primary" onClick={() => getOneItem(delivery._id)}>Edit</button>
+<button className="btn btn-danger" onClick={() => deleteItem(delivery._id)}>Delete</button>
+</td>
+<td>
+<select className="form-select" onChange={(e) => setSelectedDriver(e.target.value)}>
+<option value="">Select Driver</option>
+{drivers.map(driver => (
+<option key={driver._id} value={driver._id}>{driver._id}</option>
+))}
+</select>
+</td>
+</tr>
+))}
+</tbody>
+</table>
+</div>
+<div className="container my-3 p-3 bg-white rounded shadow-sm">
+<form onSubmit={sendData}>
+<div className="mb-3">
+<label htmlFor="contactName" className="form-label">Contact Name</label>
+<input type="text" className="form-control" id="contactName" placeholder="Enter Contact Name" value={contactName} onChange={(e) => setName(e.target.value)} required/>
+</div>
+<div className="mb-3">
+<label htmlFor="address" className="form-label">Address</label>
+<input type="text" className="form-control" id="address" placeholder="Enter Address" value={address} onChange={(e) => setAddress(e.target.value)} required/>
+</div>
+<div className="mb-3">
+<label htmlFor="province" className="form-label">Province</label>
+<input type="text" className="form-control" id="province" placeholder="Enter Province" value={province} onChange={(e) => setProvince(e.target.value)} required/>
+</div>
+<div className="mb-3">
+<label htmlFor="phone" className="form-label">Phone</label>
+<input type="text" className="form-control" id="phone" placeholder="Enter Phone Number" value={phone} onChange={(e) => setPhone(e.target.value)} required/>
+</div>
+<div className="mb-3">
+<label htmlFor="price" className="form-label">Price</label>
+<input type="number" className="form-control" id="price" placeholder="Enter Price" value={price} onChange={(e) => setPrice(e.target.value)} required/>
+</div>a
+<div className="mb-3">
+<label htmlFor="time" className="form-label">Time</label>
+<input type="text" className="form-control" id="time" placeholder="Enter Time" value={time} onChange={(e) => setTime(e.target.value)} required/>
+</div>
+<div className="mb-3">
+<input type="checkbox" name="terms" required/> <br></br><br></br>
+<button type="submit" className="btn btn-primary">Update Delivery Details</button>
+</div>
+</form>
+</div>
+</>
+)
 }
 
-export default AllDelInfo
+export default AllDelInfo;
+
+
+
+
+
+
