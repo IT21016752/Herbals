@@ -30,6 +30,9 @@ function Header() {
                             <Link to="/AllPaymentsBuyer" className="nav-link active text-white"> My Orders </Link>
                             </li>
                             <li className="nav-item">
+                            <Link to="/AddPayInfo" className="nav-link active text-white"> Make Payment </Link>
+                            </li>
+                            <li className="nav-item">
                                 <a className="nav-link text-white" href="#">About us</a>
                             </li>
                             <li className="nav-item">

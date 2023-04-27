@@ -30,15 +30,15 @@ function AllPaymentsAdmin() {
     //function to get one payment
     function getOnePayment(pid) {
         axios.get("http://localhost:4001/payment/get/" + pid).then((res) => {
-            setPayID(res.data.payment._id);
-            setEmail(res.data.payment.email);
-            setName(res.data.payment.name);
-            setAmount(res.data.payment.amount);
-            setDate(res.data.payment.date);
-            setCardNo(res.data.payment.cardNo);
-            setExpDate(res.data.payment.expDate);
-            setCvc(res.data.payment.cvc);
-            setPstatus(res.data.payment.pStatus);
+            setPayID(res.data.pay._id);
+            setEmail(res.data.pay.email);
+            setName(res.data.pay.name);
+            setAmount(res.data.pay.amount);
+            setDate(res.data.pay.date);
+            setCardNo(res.data.pay.cardNo);
+            setExpDate(res.data.pay.expDate);
+            setCvc(res.data.pay.cvc);
+            setPstatus(res.data.pay.pStatus);
         }).catch((err) => {
             alert(err.message);
         })
@@ -65,7 +65,7 @@ function AllPaymentsAdmin() {
         
         const id = payID;
 
-        axios.put("http://localhost:4001/payment/update/"+payments._id, newPayment).then(()=>{
+        axios.put("http://localhost:4001/payment/update/"+id, newPayment).then(()=>{
           alert("Payment Details Updated");
           window.location.reload();
         }).catch((err) =>{
@@ -119,6 +119,9 @@ function AllPaymentsAdmin() {
                                         getOnePayment(payment._id);
                                         showUpdateBox();
                                     }}>Update</button>
+                                    <button type="button" class="btn btn-danger" onClick={() => {
+                                        deletePayment(payment._id);
+                                    }}>Delete</button>
                                     
                                 </td>
                             </tr>
@@ -131,7 +134,7 @@ function AllPaymentsAdmin() {
                 <form onSubmit={sendData}>
                     <div className="mb-3">
                         <label for="PaymentId">Order ID</label>
-                        <input type="text" class="form-control" id="payID" value={payID}
+                        <input type="text" class="form-control" id="id" value={payID}
                             disabled />
                     </div>
                     <div className="mb-3">
@@ -194,3 +197,4 @@ function AllPaymentsAdmin() {
 }
 
 export default AllPaymentsAdmin
+
