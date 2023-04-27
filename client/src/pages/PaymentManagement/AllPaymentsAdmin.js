@@ -118,10 +118,7 @@ function AllPaymentsAdmin() {
                                     <button type="button" class="btn btn-success m-3 mt-0 mb-0" onClick={() => {
                                         getOnePayment(payment._id);
                                         showUpdateBox();
-                                    }}>Update</button>
-                                    <button type="button" class="btn btn-danger" onClick={() => {
-                                        deletePayment(payment._id);
-                                    }}>Delete</button>
+                                    }}>Update Order Status</button>
                                     
                                 </td>
                             </tr>
@@ -130,6 +127,17 @@ function AllPaymentsAdmin() {
                 </table>
             </div>
 
+            <div className="mb-3">
+                <label htmlFor="pStatus">Order Status</label>
+                    <select className="form-select" id="pStatus" value={pStatus} onChange={(e) => setPstatus(e.target.value)}>
+                            <option value="">Select Status</option>
+                            <option value="Pending">Pending</option>
+                            <option value="Processing">Processing</option>
+                            <option value="Delivered">Accepted</option>
+                            <option value="Canceled">Canceled</option>
+                    </select>
+            </div>
+            
             <div id="update-box" className="container">
                 <form onSubmit={sendData}>
                     <div className="mb-3">
@@ -179,16 +187,7 @@ function AllPaymentsAdmin() {
                             disabled />
                     </div>
 
-                    <div className="mb-3">
-                            <label htmlFor="pStatus">Order Status</label>
-                                 <select className="form-select" id="pStatus" value={pStatus} onChange={(e) => setPstatus(e.target.value)}>
-                                        <option value="">Select Status</option>
-                                        <option value="Pending">Pending</option>
-                                        <option value="Processing">Processing</option>
-                                        <option value="Delivered">Accepted</option>
-                                        <option value="Canceled">Canceled</option>
-                            </select>
-                    </div>
+                    
                     <button type="submit" class="btn btn-primary">Update Item</button>
                 </form>
             </div>
