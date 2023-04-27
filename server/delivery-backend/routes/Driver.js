@@ -89,5 +89,13 @@ Driverrouter.route("/get/:id").get(async (req,res) =>{
       res.status(500).send({status:"Error with get user ",error:err.message});
   }   )
 })
+// // endpoint that retrieves only the driver IDs from the database.
+// Driverrouter.route("/driverIds").get((req,res)=>{
+//   driver.find({}, {driverId: 1, _id: 0}).then((driverIds)=>{
+//       res.json(driverIds)
+//   }).catch((err)=>{
+//       console.log(err)
+// })
+// })
 
 export default  Driverrouter;
