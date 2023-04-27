@@ -11,7 +11,7 @@ import sendEmail from "./utils/sendEmail.js";
 import Driverrouter from "./routes/Driver.js";
 
 const app = express();
-const PORT = process.env.PORT || 8091;
+const PORT = process.env.PORT || 4002;
 
 app.use(cors());
 app.use(express.json({ limit: "20mb" }));
