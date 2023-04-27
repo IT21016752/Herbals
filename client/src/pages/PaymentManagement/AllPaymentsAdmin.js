@@ -2,11 +2,11 @@ import React, { useState, useEffect } from 'react';
 import axios from "axios";
 import '../../styles/itemStyles.css'
 
-function AllPayments() {
+function AllPaymentsAdmin() {
 
     const [payments, setPayments] = useState([]);
     const [payID, setPayID] = useState('');
-    const [userId,setuserId]= useState('');
+    const [email,setEmail]= useState('');
     const [name,setName]= useState('');
     const [amount,setAmount]= useState('');
     const [date,setDate]= useState('');
@@ -31,7 +31,7 @@ function AllPayments() {
     function getOnePayment(pid) {
         axios.get("http://localhost:4001/payment/get/" + pid).then((res) => {
             setPayID(res.data.payment._id);
-            setuserId(res.data.payment.userId);
+            setEmail(res.data.payment.email);
             setName(res.data.payment.name);
             setAmount(res.data.payment.amount);
             setDate(res.data.payment.date);
@@ -53,7 +53,7 @@ function AllPayments() {
         e.preventDefault();
         
         const newPayment = {
-            userId,
+            email,
             name,
             amount,
             date,
@@ -65,7 +65,7 @@ function AllPayments() {
         
         const id = payID;
 
-        axios.put("http://localhost:4001/payment/update/"+id, newPayment).then(()=>{
+        axios.put("http://localhost:4001/payment/update/"+payments._id, newPayment).then(()=>{
           alert("Payment Details Updated");
           window.location.reload();
         }).catch((err) =>{
@@ -91,7 +91,7 @@ function AllPayments() {
                     <thead>
                         <tr>
                             <th scope="col">Payment ID</th>
-                            <th scope="col">User ID</th>
+                            <th scope="col">Email</th>
                             <th scope="col">Name</th>
                             <th scope="col">Amount</th>
                             <th scope="col">Date</th>
@@ -106,7 +106,7 @@ function AllPayments() {
                         {payments.map(payment => (
                             <tr>
                                 <td>{payment._id}</td>
-                                <td>{payment.userId}</td>
+                                <td>{payment.email}</td>
                                 <td>{payment.name}</td>
                                 <td>{payment.amount}</td>
                                 <td>{payment.date}</td>
@@ -119,17 +119,78 @@ function AllPayments() {
                                         getOnePayment(payment._id);
                                         showUpdateBox();
                                     }}>Update</button>
-                                    <button type="button" class="btn btn-danger"onClick={() => {
-                                        deletePayment(payment._id);
-                                    }}>Delete</button>
+                                    
                                 </td>
                             </tr>
                         ))}
                     </tbody>
                 </table>
             </div>
+
+            <div id="update-box" className="container">
+                <form onSubmit={sendData}>
+                    <div className="mb-3">
+                        <label for="PaymentId">Order ID</label>
+                        <input type="text" class="form-control" id="payID" value={payID}
+                            disabled />
+                    </div>
+                    <div className="mb-3">
+                        <label for="email">Email</label>
+                        <input type="text" class="form-control" id="email" value={email}
+                            disabled />
+                    </div>
+
+                    <div className="mb-3">
+                        <label for="name">Name</label>
+                        <input type="text" class="form-control" id="name" value={name}
+                            disabled />
+                    </div>
+
+                    <div className="mb-3">
+                        <label for="amount">Amount</label>
+                        <input type="text" class="form-control" id="amount" value={amount}
+                            disabled />
+                    </div>
+
+                    <div className="mb-3">
+                        <label for="date">Ordered Date</label>
+                        <input type="text" class="form-control" id="date" value={date}
+                            disabled />
+                    </div>
+
+                    <div className="mb-3">
+                        <label for="cardNo">Card No.</label>
+                        <input type="text" class="form-control" id="cardNo" value={cardNo}
+                            disabled />
+                    </div>
+
+                    <div className="mb-3">
+                        <label for="expDate">Expiry Date</label>
+                        <input type="text" class="form-control" id="expDate" value={expDate}
+                            disabled />
+                    </div>
+
+                    <div className="mb-3">
+                        <label for="cvc">CVC</label>
+                        <input type="text" class="form-control" id="cvc" value={cvc}
+                            disabled />
+                    </div>
+
+                    <div className="mb-3">
+                            <label htmlFor="pStatus">Order Status</label>
+                                 <select className="form-select" id="pStatus" value={pStatus} onChange={(e) => setPstatus(e.target.value)}>
+                                        <option value="">Select Status</option>
+                                        <option value="Pending">Pending</option>
+                                        <option value="Processing">Processing</option>
+                                        <option value="Delivered">Accepted</option>
+                                        <option value="Canceled">Canceled</option>
+                            </select>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Update Item</button>
+                </form>
+            </div>
         </>
     )
 }
 
-export default AllPayments
+export default AllPaymentsAdmin

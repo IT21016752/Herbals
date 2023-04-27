@@ -10,7 +10,8 @@ import AllItems from './pages/ItemManagement/AllItems.js';
 import DisplayItems from './pages/ItemManagement/DisplayItems';
 import AllDelInfo from './pages/DeliveryManagement/AlldelInfo';
 import AddPayInfo from './pages/PaymentManagement/AddPayInfo';
-import AllPayments from './pages/PaymentManagement/AllPayments';
+import AllPaymentsAdmin from './pages/PaymentManagement/AllPaymentsAdmin';
+import AllPaymentsBuyer from './pages/PaymentManagement/AllPaymentsBuyer';
 import Login from './pages/UserManagement/login.js';
 import Signup from './pages/UserManagement/signup.js';
 import LandingPage from './pages/LandingPage.js';
@@ -35,6 +36,7 @@ function App() {
           <Route path="/AddDelInfo" element={<AddDeliveryInfo />} />
           <Route path="/displayitems" element={<DisplayItems />} />
           <Route path="/AddPayInfo" element={<AddPayInfo />} />
+          <Route path="/AllPaymentsBuyer" element={<AllPaymentsBuyer />} />
           <Route path="/Login" element={<Login />} />
           <Route path="/Signup" element={<Signup />} />
         </Route>
@@ -45,7 +47,7 @@ function App() {
           <Route path="/additems" element={<AddItem />} />
           <Route path="/allitems" element={<AllItems />} />
           <Route path="/AllDelInfo" element={<AllDelInfo />} />
-          <Route path="/AllPayments" element={<AllPayments />} />
+          <Route path="/AllPaymentsAdmin" element={<AllPaymentsAdmin />} />
         </Route>
         </Route>
       </Routes>

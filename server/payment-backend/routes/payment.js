@@ -6,7 +6,7 @@ const payRouter = express.Router();
 payRouter.route("/add").post((req,res)=>{
 
     //body 
-    const userId = Number(req.body.userId);
+    const email = req.body.email;
     const name = req.body.name;
     const amount= Number(req.body.amount);
     const date= req.body.date;
@@ -16,8 +16,7 @@ payRouter.route("/add").post((req,res)=>{
     const pStatus=req.body.pStatus;
 
     const newPayment = new payment({
-
-        userId,
+        email,
         name,
         amount,
         date,
@@ -50,10 +49,10 @@ payRouter.route("/").get((req,res)=>{
 
 payRouter.route("/update/:id").put(async(req,res)=>{
     let payid=req.params.id;
-    const{ userId,name,amount,date,cardNo,expDate,cvc,pStatus} =req.body;
+    const{email,name,amount,date,cardNo,expDate,cvc,pStatus} =req.body;
 
     const updatePayment ={
-        userId,
+        email,
         name,
         amount,
         date,
@@ -94,10 +93,10 @@ payRouter.route("/get/:id").get(async (req,res) =>{
     let payid = req.params.id;
     const pay=await payment.findById(payid)
       .then((pay)=>{
-         res.status(200).send({status:"payment information selected",pay})
+         res.status(200).send({status:"Order information selected",pay})
     }).catch((err) =>  {
         console.log(err.messsage);
-        res.status(500).send({status:"Error with payment viewing ",error:err.message});
+        res.status(500).send({status:"Error with Order viewing ",error:err.message});
     }   )
 })
 
