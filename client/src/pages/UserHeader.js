@@ -24,6 +24,9 @@ function Header() {
                                 <Link to="/displayitems" className="nav-link active text-white"> Home </Link>
                             </li>
                             <li className="nav-item">
+                            <Link to="/AddDelInfo" className="nav-link active text-white"> Add delivery information </Link>
+                            </li>
+                            <li className="nav-item">
                                 <a className="nav-link text-white" href="#">About us</a>
                             </li>
                             <li className="nav-item">
