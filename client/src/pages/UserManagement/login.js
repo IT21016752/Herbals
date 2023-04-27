@@ -11,6 +11,7 @@ function Login() {
   const navigate = useNavigate()
   const dispatch = useDispatch()
 
+  //function to send data
   function sendData(e) {
     e.preventDefault();
 
@@ -35,7 +36,6 @@ function Login() {
 
   return (
     <>
-
       <section class="h-100 gradient-form" style={{ backgroundColor: "#eee" }}>
         <div class="container py-5 h-100">
           <div class="row d-flex justify-content-center align-items-center h-100">
@@ -44,7 +44,6 @@ function Login() {
                 <div class="row g-0">
                   <div class="col-lg-6">
                     <div class="card-body p-md-5 mx-md-4">
-
                       <div class="text-center">
                         <img src="/assets/logo.png"
                           style={{ width: "185px" }} alt="logo" />

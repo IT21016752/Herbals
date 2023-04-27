@@ -2,6 +2,7 @@ import mongoose from "mongoose";
 
 const Schema = mongoose.Schema;
 
+//This will create the user table
 const userSchema = new Schema({
 
     firstName: {

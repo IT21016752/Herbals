@@ -104,7 +104,6 @@ userRouter.route("/get/:email").get(async (req, res) => {
     }),
 
     //login
-
     userRouter.route("/login").post(async (req, res) => {
         const { email, password } = req.body
         const user = await User.findOne({ email: email });
