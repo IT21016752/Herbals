@@ -14,6 +14,7 @@ function AllItems() {
     const loggedUser = useSelector((state) => state.user)
     const token = useSelector((state) => state.token)
 
+    //authorization
     const config = {
         headers: {
             'Authorization': `Bearer ${token}`,
