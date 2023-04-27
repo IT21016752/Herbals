@@ -25,7 +25,7 @@ function sendData(e){
 
   }
 
-  axios.post("http://localhost:8091/delivery/add",newDelivery).then(()=>{
+  axios.post("http://localhost:4002/delivery/add",newDelivery).then(()=>{
     alert("delivery infromation added")
     setuid("");
     setName("");
@@ -44,9 +44,14 @@ const sendEmail=async (e) =>  {
   const data={
     email
   }
-  const response = await axios.post("http://localhost:8091/api/sendEmail",data)
+  try {
+  const response = await axios.post("http://localhost:4002/api/sendEmail",data)
   console.log(response.data)
-
+  alert("Confirmation email sent successfully!!!.Please check your email");
+} catch (error) {
+  alert("Error occurred while sending confirmation email.");
+  console.error(error);
+}
 };
     return(
       <div className="container"   >
@@ -104,20 +109,25 @@ const sendEmail=async (e) =>  {
       setTime(e.target.value);
           }}/>
         </div>
-        
+        <br></br>
+        <input type="checkbox" name="terms" required /> <br></br><br></br>
+
         <button type="submit" class="btn btn-primary">Submit</button>
       </form>
       </div>
      <br></br><br></br>
-      <div class="form-style2">
+     <div class="form-container">
+      <div class="form-style2"  >
       <h2>Send an email confirmation</h2>
       <br></br><br></br><br></br>
       <form onSubmit={sendEmail}>
   <div className="form-group">
     <input type="email" className="form-control" id="email" placeholder="Enter your email here " onChange={(e) => setEmail(e.target.value)} />
   </div><br></br><br></br>
+
   <button type="submit" className="btn btn-primary">Send Confirmation Email</button>
 </form>
+      </div>
       </div>
       </div>
           )
