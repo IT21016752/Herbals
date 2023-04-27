@@ -11,6 +11,7 @@ function Signup() {
   const [password, setPassword] = useState("");
   const navigate = useNavigate()
 
+  //function to send data
   function sendData(e) {
     e.preventDefault();
 
@@ -33,7 +34,6 @@ function Signup() {
 
   return (
     <>
-
       <section class="h-100 gradient-form" style={{ backgroundColor: "#eee" }}>
         <div class="container py-5 h-100">
           <div class="row d-flex justify-content-center align-items-center h-100">

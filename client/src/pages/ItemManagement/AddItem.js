@@ -13,11 +13,11 @@ function AddItem() {  //ImageUpload
   const token = useSelector((state) => state.token)
 
   const config = {
-      headers: {
-          'Authorization': `Bearer ${token}`,
-          'Content-Type': 'application/json'
-        }
-    };
+    headers: {
+      'Authorization': `Bearer ${token}`,
+      'Content-Type': 'application/json'
+    }
+  };
 
   //image
   const [loading, setLoading] = useState(false)
@@ -25,19 +25,20 @@ function AddItem() {  //ImageUpload
 
   const convertBase64 = (file) => {
     return new Promise((resolve, reject) => {
-        const fileReader = new FileReader();
-        fileReader.readAsDataURL(file);
+      const fileReader = new FileReader();
+      fileReader.readAsDataURL(file);
 
-        fileReader.onload = () => {
-            resolve(fileReader.result);
-        };
+      fileReader.onload = () => {
+        resolve(fileReader.result);
+      };
 
-        fileReader.onerror = (error) => {
-            reject(error);
-        };
-      });
-    };
+      fileReader.onerror = (error) => {
+        reject(error);
+      };
+    });
+  };
 
+  //function for sending data
   function sendData(e) {
     e.preventDefault();
 
@@ -55,6 +56,7 @@ function AddItem() {  //ImageUpload
 
   }
 
+  //uploading the image
   const uploadImage = async (event) => {
 
     event.preventDefault()
@@ -64,42 +66,42 @@ function AddItem() {  //ImageUpload
     setLoading(true);
     console.log(base64)
     axios.post("http://localhost:4000/uploadImage", { image: base64 }).then((res) => {
-        setUrl(res.data);
-        //res.data
-        alert("Image uploaded Succesfully");
+      setUrl(res.data);
+      //res.data
+      alert("Image uploaded Succesfully");
     }).then(() => setLoading(false))
-        .catch(console.log);
-    }
+      .catch(console.log);
+  }
 
   return (
     <div className="container">
-      <div class = "form-style">
+      <div class="form-style">
         <h4>Add New Product</h4>
         <br></br>
-      <form onSubmit={sendData}>
-        <div className="mb-3">
-          <label for="itemName">Item Name</label>
-          <input type="text" class="form-control" id="itemName" placeholder="Enter Item Name"
-            onChange={(e) => {
-              setName(e.target.value);
-            }} />
-        </div>
-        <div className="mb-3">
-          <label for="itemPrice">Item Price</label>
-          <input type="text" class="form-control" id="itemPrice" placeholder="Enter Item Price"
-            onChange={(e) => {
-              setPrice(e.target.value);
-            }} />
-        </div>
+        <form onSubmit={sendData}>
+          <div className="mb-3">
+            <label for="itemName">Item Name</label>
+            <input type="text" class="form-control" id="itemName" placeholder="Enter Item Name"
+              onChange={(e) => {
+                setName(e.target.value);
+              }} />
+          </div>
+          <div className="mb-3">
+            <label for="itemPrice">Item Price</label>
+            <input type="text" class="form-control" id="itemPrice" placeholder="Enter Item Price"
+              onChange={(e) => {
+                setPrice(e.target.value);
+              }} />
+          </div>
 
-        <div className="mb-3">
-          <label for="itemImage">Item Image</label>
-          <input type="file" class="form-control" id="itemImage"
-            onChange={ uploadImage } />
-        </div>
-        <button type="submit" class="btn btn-primary">Add Item</button>
-      </form>
-    </div>
+          <div className="mb-3">
+            <label for="itemImage">Item Image</label>
+            <input type="file" class="form-control" id="itemImage"
+              onChange={uploadImage} />
+          </div>
+          <button type="submit" class="btn btn-primary">Add Item</button>
+        </form>
+      </div>
     </div>
   )
 }
