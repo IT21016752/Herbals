@@ -127,17 +127,7 @@ function AllPaymentsAdmin() {
                 </table>
             </div>
 
-            <div className="mb-3">
-                <label htmlFor="pStatus">Order Status</label>
-                    <select className="form-select" id="pStatus" value={pStatus} onChange={(e) => setPstatus(e.target.value)}>
-                            <option value="">Select Status</option>
-                            <option value="Pending">Pending</option>
-                            <option value="Processing">Processing</option>
-                            <option value="Delivered">Accepted</option>
-                            <option value="Canceled">Canceled</option>
-                    </select>
-            </div>
-            
+  
             <div id="update-box" className="container">
                 <form onSubmit={sendData}>
                     <div className="mb-3">
@@ -186,6 +176,18 @@ function AllPaymentsAdmin() {
                         <input type="text" class="form-control" id="cvc" value={cvc}
                             disabled />
                     </div>
+
+                    <div className="mb-3">
+                <label htmlFor="pStatus">Order Status</label>
+                    <select className="form-select" id="pStatus" value={pStatus} onChange={(e) => setPstatus(e.target.value)}>
+                            <option value="">Select Status</option>
+                            <option value="Pending">Pending</option>
+                            <option value="Processing">Processing</option>
+                            <option value="Accepted">Accepted</option>
+                            <option value="Canceled">Canceled</option>
+                    </select>
+            </div>
+            
 
                     
                     <button type="submit" class="btn btn-primary">Update Item</button>

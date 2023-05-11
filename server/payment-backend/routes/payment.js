@@ -3,6 +3,8 @@ import payment from "../models/payment.js";
 
 const payRouter = express.Router();
 
+//create
+
 payRouter.route("/add").post((req,res)=>{
 
     //body 
@@ -35,6 +37,8 @@ payRouter.route("/add").post((req,res)=>{
 
 })
 
+//fetch
+
 payRouter.route("/").get((req,res)=>{  
 
     //findbyid for single one
@@ -46,6 +50,7 @@ payRouter.route("/").get((req,res)=>{
 })
 })
 
+//update
 
 payRouter.route("/update/:id").put(async(req,res)=>{
     let payid=req.params.id;
@@ -74,6 +79,7 @@ payRouter.route("/update/:id").put(async(req,res)=>{
 
 })
 
+//delete
 
 payRouter.route("/delete/:id").delete(async(req,res)=>{
     let payid =req.params.id;
