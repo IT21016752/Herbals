@@ -1,0 +1,34 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: deliveryservice
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: deliveryservice
+  template:
+    metadata:
+      labels:
+        app: deliveryservice
+    spec:
+      containers:
+        - name: deliveryservice
+          image: herbals/deliveryservice:latest # replace with your Docker image name
+          imagePullPolicy: Never
+          ports:
+            - containerPort: 4002 # replace with the port your app listens on
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: deliveryservice
+spec:
+  type: LoadBalancer
+  ports:
+    - port: 4002
+      targetPort: 4002
+      protocol: TCP
+  selector:
+    app: deliveryservice

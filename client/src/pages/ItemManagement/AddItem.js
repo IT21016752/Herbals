@@ -2,12 +2,15 @@ import React, { useState } from 'react'
 import '../../styles/itemStyles.css'
 import axios from 'axios';
 import { useSelector } from 'react-redux';
+import {useNavigate} from 'react-router-dom';
 
 function AddItem() {  //ImageUpload
 
   const [itemName, setName] = useState("");
   const [itemPrice, setPrice] = useState("");
   const [itemImage, setImage] = useState("");
+
+  const navigate = useNavigate()
 
   const loggedUser = useSelector((state) => state.user)
   const token = useSelector((state) => state.token)
@@ -50,6 +53,7 @@ function AddItem() {  //ImageUpload
 
     axios.post("http://localhost:4000/item/add", newItem, config).then(() => {
       alert("Item added")
+      navigate('/allitems')
     }).catch((err) => {
       alert(err)
     })

@@ -1,0 +1,38 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: productservice
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: productservice
+  
+  template:
+    metadata:
+      labels:
+        app: productservice
+    
+    spec:
+      containers:
+        - name: productservice
+    
+          image: herbals/productservice:latest # replace with your Docker image name
+          imagePullPolicy: Never
+          ports:
+            - containerPort: 4000 # replace with the port your app listens on
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: productservice
+spec:
+  type: LoadBalancer
+  ports:
+    - port: 4000
+      targetPort: 4000
+      protocol: TCP
+  selector:
+    app: productservice
+
